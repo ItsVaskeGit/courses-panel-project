@@ -1,5 +1,13 @@
 <img src="https://i.imgur.com/zUy8o65.png">
 
+# Home Page
+
+<img src="https://i.imgur.com/JMDveN8.png">
+
+# Account Area Page
+
+<img src="https://i.imgur.com/6ZyZnjN.png">
+
 # Courses Panel Lab
 
 This project has the objective to create a platform where courses from various types of education can be distributed by instructors.
@@ -42,7 +50,7 @@ Also this page should allow the said user to update their personal information i
 
 ### This game uses Node.js, EJS, MongoDB, Morgan, dotenv, Express.js. No other libraries or any external code.
 
-For the actual grid two-dimensional array will be used and it will have fixed size of the both dimensions.
+The entire app database is done in MongoDB and is being controlled by the mongoose js library.
 
 [//]: # (## Plans for the Future)
 
