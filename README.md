@@ -1,3 +1,5 @@
+<img src="https://i.imgur.com/zUy8o65.png">
+
 # Courses Panel Lab
 
 This project has the objective to create a platform where courses from various types of education can be distributed by instructors.
