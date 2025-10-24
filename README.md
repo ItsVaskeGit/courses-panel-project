@@ -48,7 +48,7 @@ Also this page should allow the said user to update their personal information i
 
 ## Programming concepts
 
-### This game uses Node.js, EJS, MongoDB, Morgan, dotenv, Express.js. No other libraries or any external code.
+### This app uses Node.js, EJS, MongoDB, Morgan, dotenv, Express.js. No other libraries or any external code.
 
 The entire app database is done in MongoDB and is being controlled by the mongoose js library.
 
