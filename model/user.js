@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const typeSchema = new mongoose.Schema({
     name: String,
-    required: true
+    required: Boolean
 });
 
 const userSchema = new mongoose.Schema({
