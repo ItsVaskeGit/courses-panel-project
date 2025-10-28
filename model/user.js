@@ -1,14 +1,9 @@
 const mongoose = require('mongoose');
 
-const typeSchema = new mongoose.Schema({
-    name: String,
-    required: Boolean
-});
-
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    type: typeSchema,
+    type: String,
     ownedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}]
 });
 

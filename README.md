@@ -52,17 +52,17 @@ Also this page should allow the said user to update their personal information i
 
 The entire app database is done in MongoDB and is being controlled by the mongoose js library.
 
-[//]: # (## Plans for the Future)
+## Plans for the Future
 
-[//]: # ()
-[//]: # (* Adding better protection and checking to the customization page)
 
-[//]: # (* Adding networking support for real multiplayer)
+* Adding statistics and showing student progress
 
-[//]: # (* Making better animations)
+* Adding Q&A section for specific questions to the instructor
 
-[//]: # (* Styling better)
+* Adding FAQ section for frequently asked questions
 
-[//]: # (* Add a soundtrack, it is less boring with it)
+* Styling better
 
-[//]: # (* Add sound effect to the exploding and splashing animation)
+* Adding multiple language support, the only supported one is English currently
+
+* Generating a custom certificate, to congratulate the student
