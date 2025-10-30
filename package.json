@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ItsVaskeGit/courses-panel-project#readme",
   "dependencies": {
+    "axios": "^1.13.1",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",

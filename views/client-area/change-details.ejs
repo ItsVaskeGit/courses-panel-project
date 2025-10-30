@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Details Modification</title>
+</head>
+<body>
+<h1>Change user details!</h1>
+<form action="/user/details?_method=PUT" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" value="<%= user.username%>"/>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password"/>
+    <label for="instructor">Instructor: </label>
+    <input type="radio" name="type" id="instructor" value="instructor" checked="<%= user.type === 'instructor'%>>">
+    <label for="student">Student: </label>
+    <input type="radio" name="type" id="student" value="student" placeholder="Student: "  checked="<%= user.type === 'student'%>">
+    <button type="submit">Sign up</button>
+</form>
+</body>
+</html>

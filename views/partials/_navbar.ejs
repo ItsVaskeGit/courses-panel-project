@@ -8,4 +8,8 @@
         <a href="/auth/sign-up">Sign Up</a>
     <% } %>
     <a href="/my-courses">My courses</a>
+    <a href="/edit-courses">Edit Courses</a>
+    <% if(typeof funds !== 'undefined') { %>
+        <a href="/deposit">Credits: <%=funds%></a>
+    <% } %>
 </nav>

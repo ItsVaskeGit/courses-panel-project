@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/course-style.css">
+    <title>Home Page</title>
+</head>
+<body>
+<%- include('../partials/_navbar.ejs') %>
+<h1 ><%=course.name%></h1>
+<% course.content.forEach((entry) => { %>
+    <div class="content-section">
+        <div class="content-entry">
+            <h1>Section: <%=entry.section%></h1>
+            <div id="name">Description: <%= entry.name %> </div>
+        </div>
+    </div>
+        <div class="video-section">
+            <% entry.videos.forEach((videoEntry) => { %>
+                <div class="video-entry" onclick="redirectToVideo('<%= course.id %>', '<%= entry.id%>', '<%=videoEntry.id%>')">
+                    <img src="https://img.freepik.com/premium-vector/play-button-icon-symbol-transparent-background-video-audio-player-vector-illustration_350225-118.jpg" style="height: 50px; width: 50px">
+                    <h3>Name: <%= videoEntry.name%></h3>
+                    <div id="length">Video Length: <%= videoEntry.length%> </div>
+                </div>
+            <% }) %>
+        </div>
+    <% }) %>
+
+    <% if(!owns) { %>
+        <div class="buy" onclick="buy('<%=course.id%>')">Buy this couse now!</div>
+    <% }%>
+
+</body>
+<script>
+    function redirectToVideo(courseId, contentId, videoId) {
+        window.location.href = "/watch/" + courseId + "/" + contentId + "/" + videoId;
+    }
+
+    function buy(id) {
+        window.location.href = "/buy/" + id;
+    }
+</script>
+</html>

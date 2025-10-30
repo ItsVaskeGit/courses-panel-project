@@ -1,0 +1,31 @@
+* {
+    background-color: beige;
+    border-radius: 20px;
+    font-family: "Momo Trust Display", sans-serif;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    display: flex;
+    margin-bottom: 50px;
+    padding: 30px 30px 30px 30px;
+}
+
+button {
+    padding: 30px 30px 30px 30px;
+}
+
+button:hover {
+    cursor:pointer;
+    background-color: bisque;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

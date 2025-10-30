@@ -6,25 +6,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/index-style.css">
+    <link rel="stylesheet" href="/stylesheets/my-courses-style.css">
     <title>Home Page</title>
 </head>
 <body>
 <%- include('../partials/_navbar.ejs') %>
-<% if(user) {%>
-    <h1>Welcome to the course library, <%= user.username %>!</h1>
-<% } else { %>
-    <h1>Welcome to the course library, guest!</h1>
-<% } %>
-<div class="courses-section">
-    <% courses.forEach((entry) => { %>
+<h1>My courses</h1>
+
+<% courses.forEach((entry) => { %>
     <div class="course" onclick="redirectToCourse('<%=entry.id%>')"><%=entry.name%></div>
-    <% }) %>
-</div>
+<% }) %>
+
 </body>
+
 <script>
-    function redirectToCourse(courseId) {
-        window.location.href = "/view/" + courseId;
+    function redirectToCourse(id) {
+        window.location.href = "/view/" + id;
     }
 </script>
 </html>

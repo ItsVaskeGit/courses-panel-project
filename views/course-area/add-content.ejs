@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/add-content.css">
+    <title>Home Page</title>
+</head>
+<body>
+<%- include('../partials/_navbar.ejs') %>
+<h1>Editing content for course: <%=course.name%></h1>
+<div class="content-section">
+<% course.content.forEach((entry) => { %>
+    <div class="content-entry">
+        <input type="text" name="name" id="name" value="<%= entry.name %>">
+        <input type="text" name="section" id="section" value="<%= entry.section%>">
+        <div class="video-section">
+            <% entry.videos.forEach((entry) => { %>
+                <div class="video-entry">
+                    <input type="text" name="name" id="name" value="<%= entry.name%>">,
+                    <input type="number" name="length" id="length" value="<%= entry.length%>">
+                    <input type="text" name="url" id="url" value="<%= entry.url%>">
+                    <button onclick="removeVideo(this.parentElement)" class="remove">Remove</button>
+                </div>
+            <% }) %>
+            <button class="add" onclick="addVideo(this.parentElement)">Add</button>
+        </div>
+        <button class="remove" onClick="removeSection(this.parentElement)">Remove</button>
+    </div>
+<% }) %>
+
+</div>
+
+<button class="add" onclick="addSection()">Add</button>
+
+<button class="submit" onclick="submit('<%= course.id%>')">Submit</button>
+
+</body>
+
+<script>
+    function removeSection(el) {
+        let element = el;
+        element.innerHTML = '';
+        element.remove();
+    }
+
+    function removeVideo(el) {
+        el.remove();
+    }
+
+    function addSection() {
+        let contentSection = document.querySelector(".content-section");
+        let newSection = document.createElement("div");
+        newSection.className = "content-entry";
+        newSection.innerHTML = '<input type="text" name="name" id="name"> ' +
+            '<input type="text" name="section" id="section"> ' +
+            '<div class="video-section">' +
+            '<button class="add" onclick="addVideo(this.parentElement)">Add</button>' +
+            '</div>' +
+            '<button class="remove" onClick="removeSection(this.parentElement)">Remove</button>';
+        contentSection.appendChild(newSection);
+    }
+
+    function addVideo(el) {
+        let newVideo = document.createElement("div");
+        newVideo.className = "video-entry";
+        newVideo.innerHTML = '<input type="text" name="name" id="name">, ' +
+            '<input type="number" name="length" id="length"> ' +
+            '<input type="text" name="url" id="url"> ' +
+            '<button onclick="removeVideo(this.parentElement)" class="remove">Remove</button> ';
+        el.appendChild(newVideo);
+    }
+
+    async function submit(id) {
+        let objectToSubmit = [];
+        let sections = document.querySelectorAll(".content-entry");
+        sections.forEach((entry) => {;
+            let name = entry.querySelector("#name").value;
+            let sectionName = entry.querySelector("#section").value;
+            let section = {
+                name: name,
+                section: sectionName,
+                videos: []
+            };
+            entry.querySelectorAll(".video-entry").forEach((video) => {
+                let inputs = video.querySelectorAll("input");
+                let name = "";
+                let length = "";
+                let url = "";
+                inputs.forEach((input) => {
+                    if(input.id === 'name') {
+                        name = input.value;
+                    }else if(input.id === "length") {
+                        length = input.value;
+                    }else if(input.id === "url") {
+                        url = input.value;
+                    }
+                });
+                let newVideo = {
+                    name: name,
+                    length: Number(length),
+                    url: url
+                }
+                section.videos.push(newVideo);
+            });
+            objectToSubmit.push(section);
+        });
+
+        console.log(objectToSubmit.toString())
+
+        const body = JSON.stringify(objectToSubmit);
+        console.log(body);
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open('PUT', "/add-content/" + id, true);
+        xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        await xmlHttp.send(body);
+        window.href = "/";
+    }
+</script>
+</html>

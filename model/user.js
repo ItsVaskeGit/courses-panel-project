@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     password: String,
     type: String,
+    funds: Number,
     ownedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}]
 });
 

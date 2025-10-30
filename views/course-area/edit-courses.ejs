@@ -6,25 +6,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/index-style.css">
+    <link rel="stylesheet" href="/stylesheets/edit-courses.css">
     <title>Home Page</title>
 </head>
 <body>
 <%- include('../partials/_navbar.ejs') %>
-<% if(user) {%>
-    <h1>Welcome to the course library, <%= user.username %>!</h1>
-<% } else { %>
-    <h1>Welcome to the course library, guest!</h1>
-<% } %>
-<div class="courses-section">
-    <% courses.forEach((entry) => { %>
-    <div class="course" onclick="redirectToCourse('<%=entry.id%>')"><%=entry.name%></div>
-    <% }) %>
-</div>
+<h1>Edit my courses</h1>
+
+<div class="course" onclick="newCourse()">New Course</div>
+
+<% courses.forEach((entry) => { %>
+<div class="course" onclick="editCourse('<%=entry.id%>')"><%=entry.name%></div>
+<% }) %>
+
 </body>
+
 <script>
-    function redirectToCourse(courseId) {
-        window.location.href = "/view/" + courseId;
+    function editCourse(id) {
+        window.location.href = "/content-manager/" + id;
+    }
+
+    function newCourse() {
+        window.location.href = "/new-course/"
     }
 </script>
 </html>

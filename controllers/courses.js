@@ -4,25 +4,120 @@ const router = express.Router();
 const Course = require('../model/course.js');
 
 const User = require('../model/user.js');
+const e = require("express");
 
-router.get('/', (req, res) => {
-    res.render("../views/home/index.ejs", { courses: randomizedCourses(), user: req.session.user});
+router.get('/', async (req, res) => {
+    let courses = await randomizedCourses();
+    let money = 0;
+    if(req.session.user) {
+        let user = await User.findById(req.session.user._id);
+        money = user.funds;
+    }
+    res.render("../views/home/index.ejs", { courses: courses, user: req.session.user, funds: money});
 });
 
-router.get('/:courseId', async (req, res) => {
-    let course = Course.findById(req.params.courseId);
-    res.render("../views/course-area/course.ejs", { course: course, user: req.session.user });
-});
-
-router.get('/watch/:courseId', async (req, res) => {
+router.get('/view/:courseId', async (req, res) => {
+    let user = await User.findById(req.session.user._id);
     let course = await Course.findById(req.params.courseId);
-    res.render("../views/course-area/watch-content.ejs", { course: course });
+    let owns;
+    user.ownedCourses.forEach((entry) => {
+       if(entry.toString() === course.id) {
+           owns = true;
+       }
+    });
+    if(owns) {
+        res.render("../views/course-area/course.ejs", { course: course, user: req.session.user, owns: true, funds: user.funds });
+    }else {
+        res.render("../views/course-area/course.ejs", { course: course, user: req.session.user, owns: false, funds: user.funds });
+    }
+});
+
+router.get('/edit-courses', async (req, res) => {
+    let user = await User.findById(req.session.user._id);
+    if(user.type === "instructor") {
+        let coursesForEdit = [];
+        for(let i = 0; i < user.ownedCourses.length; i++) {
+            let course = await Course.findById(user.ownedCourses[i].toString());
+            if(course !== null) {
+                course.instructors.forEach((entry) => {
+                    if(entry.toString() === req.session.user._id) {
+                        coursesForEdit.push(course);
+                    }
+                });
+            }
+        }
+        res.render("../views/course-area/edit-courses.ejs", {courses: coursesForEdit, user: user, funds: user.funds})
+    }else {
+        res.redirect("/");
+    }
+})
+
+router.get('/new-course', async (req, res) => {
+    let user = await User.findById(req.session.user._id);
+    if(user.type === 'instructor') {
+        res.render("../views/course-area/new-course.ejs");
+    }else {
+        res.redirect("/");
+    }
+});
+
+router.get('/content-manager/:courseId', async (req, res) => {
+    let course = await Course.findById(req.params.courseId);
+    let isInstructor = false;
+    course.instructors.forEach((instructor) => {
+        if(instructor.toString() === req.session.user._id) {
+            isInstructor = true;
+        }
+    });
+    if(isInstructor) {
+        res.render("../views/course-area/add-content.ejs", {course: course, user: req.session.user});
+    }else {
+        res.redirect("/");
+    }
+});
+
+router.put('/add-content/:courseId', async (req, res) => {
+    const course = await Course.findById(req.params.courseId);
+    let data;
+
+    for(const [key, value] of Object.entries(req.body)) {
+        data = JSON.parse("[" + key + "]");
+    }
+
+    if(course !== null) {
+        let content = [];
+        data.forEach((entry) => {
+            content.push(entry);
+        })
+
+        course.content = content;
+
+        let savedCourse = await course.save();
+
+        res.redirect("/view/" + savedCourse.id);
+    }
+});
+
+router.get('/my-courses', async (req, res) => {
+    let user = await User.findById(req.session.user._id);
+    let ownerCourses = [];
+    for(let i = 0; i < user.ownedCourses.length; i++) {
+        ownerCourses.push(await Course.findById(user.ownedCourses[i]));
+    }
+    ownerCourses = ownerCourses.filter(n => n);
+    res.render("../views/course-area/my-courses.ejs", {courses: ownerCourses, user: user, funds: user.funds})
 });
 
 router.get('/watch/:courseId/:contentId/:videoId', async (req, res) => {
     let course = await Course.findById(req.params.courseId);
     let user = await User.findById(req.session.user._id);
-    if(course in user.ownedCourses) {
+    let owns;
+    user.ownedCourses.forEach((entry) => {
+        if(entry.toString() === course.id) {
+            owns = true;
+        }
+    })
+    if(owns) {
         let content = {};
         let video = {};
         course.content.forEach((entry) => {
@@ -37,9 +132,9 @@ router.get('/watch/:courseId/:contentId/:videoId', async (req, res) => {
                 }
             });
         }
-        res.render("../views/course-area/watch-video.ejs", { content: content, videoUrl: video.url, courseName: course.name })
+        res.render("../views/course-area/watch-video.ejs", { content: content, videoName: video.name, videoUrl: video.url, courseName: course.name })
     }else {
-        res.render("../views/course-area/watch-video.ejs", { message: "User does not own the course therefore the content is inaccessible." });
+        res.redirect("/");
     }
 });
 
@@ -50,21 +145,34 @@ router.post('/create', async (req, res) => {
 
     const course = { name: name,
                           theme: theme,
+                          instructors: [req.session.user._id],
                           content: content };
 
-    await Course.create(course);
+    let created= await Course.create(course);
 
-    res.redirect("/user")
+    res.redirect("/view/" + created.id);
 });
 
-router.put('/add-content/:courseId', async (req, res) => {
-    const course = Course.findById(req.params.courseId);
+router.get('/deposit', async (req, res) => {
+    let user = await User.findById(req.session.user._id);
+    res.render("../views/client-area/deposit.ejs", {user: user});
+});
 
-    if(course !== null) {
-        // TODO
-    }else {
-        res.redirect("/");
-    }
+
+router.get('/buy/:courseId', async (req, res) => {
+   let user = await User.findById(req.session.user._id);
+   let course = await Course.findById(req.params.courseId);
+   if(user.funds >= course.price) {
+       user.ownedCourses.push(course.id);
+
+       user.funds -= course.price;
+
+       console.log("bought");
+
+       await user.save();
+   }
+
+   res.redirect("/view/" + course.id);
 });
 
 const randomizedCourses = async () => {

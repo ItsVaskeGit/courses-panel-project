@@ -1,0 +1,37 @@
+* {
+    background-color: beige;
+    border-radius: 20px;
+    font-family: "Momo Trust Display", sans-serif;
+}
+
+.courses-section {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+a {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.course {
+    display: flex;
+    margin: 10px 10px 10px 10px;
+    padding: 30px 30px 30px 30px;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    font-size: 25px;
+}
+
+.course:hover {
+    cursor: pointer;
+    background-color: bisque;
+}

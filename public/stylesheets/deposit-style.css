@@ -1,0 +1,22 @@
+* {
+    background-color: beige;
+    font-family: "Momo Trust Display", sans-serif;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}

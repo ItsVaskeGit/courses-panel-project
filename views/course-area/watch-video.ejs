@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/video-watch-style.css">
+    <title>Watch a video</title>
+</head>
+<body>
+<h1>Watch a course video</h1>
+
+<h3>Name: <%=videoName%></h3>
+
+<h4>Section: <%=content.section%></h4>
+
+<video width="1280" height="720" controls>
+    <source src="<%=videoUrl%>" type="video/mp4">
+</video>
+
+<div class="content-entry">
+    <h1>Content pane</h1>
+    <div id="name">Name: <%= content.name %> </div>
+    <div id="section">Section: <%= content.section%> </div>
+</div>
+
+<% content.videos.forEach((videoEntry) => { %>
+    <div class="video-entry">
+        <div id="name">Name: <%= videoEntry.name%> </div>
+        <div id="length">Video Length: <%= videoEntry.length%> </div>
+    </div>
+<% }) %>
+</body>
+</html>

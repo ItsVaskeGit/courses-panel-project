@@ -15,6 +15,8 @@ const contentSchema = new mongoose.Schema({
 const courseSchema = new mongoose.Schema({
     name: String,
     theme: String,
+    price: Number,
+    instructors: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     content: [contentSchema]
 });
 

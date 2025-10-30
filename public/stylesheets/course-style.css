@@ -1,0 +1,72 @@
+* {
+    background-color: beige;
+    font-family: "Momo Trust Display", sans-serif;
+}
+
+a {
+    margin: 20px 20px 80px 20px;
+    text-decoration: none;
+}
+
+.buy {
+    display: flex;
+    justify-content: center;
+    border: 2px solid black;
+    padding: 25px 50px 25px 50px;
+    border-radius: 20px;
+    font-size: 40px;
+}
+
+.buy:hover {
+    cursor: pointer;
+    background-color: antiquewhite;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.content-entry {
+    display: flex;
+    border: 2px solid black;
+    margin-bottom: 20px;
+    padding: 25px 50px 25px 50px;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+.content-section {
+    display: flex;
+    justify-content: center;
+}
+
+.content-entry div {
+    margin: 10px 10px 10px 10px;
+}
+
+.video-entry {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 20px;
+}
+
+.video-entry:hover {
+    cursor: pointer;
+    background-color: antiquewhite;
+}
+
+.video-entry div {
+    margin-bottom: 5px;
+}
+
+.video-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}

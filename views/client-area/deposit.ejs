@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/deposit-style.css">
+    <title>Deposit</title>
+</head>
+<body>
+<h1>Deposit money into your account...</h1>
+<h2>Current balance: <%=user.funds%></h2>
+<form action="/user/deposit?_method=PUT" method="POST">
+    <label for="amount">Enter amount:</label>
+    <input type="number" name="amount" id="amount"/>
+    <button type="submit">Pay up</button>
+</form>
+</body>
+</html>

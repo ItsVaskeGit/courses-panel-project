@@ -1,34 +1,36 @@
 * {
     background-color: beige;
+    border-radius: 20px;
     font-family: "Momo Trust Display", sans-serif;
 }
 
-h1, h3, h4 {
+h1 {
     display: flex;
     justify-content: center;
 }
 
-video {
+input {
     display: flex;
-    align-self: center;
+    margin-bottom: 50px;
+    padding: 30px 30px 30px 30px;
 }
 
-.content-entry {
-    border: 2px solid black;
-    margin-top: 30px;
+button {
+    padding: 30px 30px 30px 30px;
 }
 
-.video-entry {
-    border: 2px solid black;
-    margin-top: 30px;
-}
-
-.video-entry div {
+label {
     display: flex;
     justify-content: center;
 }
 
-.content-entry div,h1 {
+button:hover {
+    cursor:pointer;
+    background-color: bisque;
+}
+
+form {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }

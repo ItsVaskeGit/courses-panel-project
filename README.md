@@ -66,3 +66,5 @@ The entire app database is done in MongoDB and is being controlled by the mongoo
 * Adding multiple language support, the only supported one is English currently
 
 * Generating a custom certificate, to congratulate the student
+
+* Adding personalization to user, such as icon
