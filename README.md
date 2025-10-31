@@ -1,3 +1,9 @@
+# Actual image
+
+<img src="https://i.imgur.com/eDQLN7J.png">
+
+# Schema
+
 <img src="https://i.imgur.com/zUy8o65.png">
 
 # Home Page
