@@ -15,14 +15,14 @@
 <div class="content-section">
 <% course.content.forEach((entry) => { %>
     <div class="content-entry">
-        <input type="text" name="name" id="name" value="<%= entry.name %>">
-        <input type="text" name="section" id="section" value="<%= entry.section%>">
+        <input type="text" name="name" id="name" value="<%= entry.name %>" placeholder="Section name...">
+        <input type="text" name="section" id="section" value="<%= entry.section%>" placeholder="Description...">
         <div class="video-section">
             <% entry.videos.forEach((entry) => { %>
                 <div class="video-entry">
-                    <input type="text" name="name" id="name" value="<%= entry.name%>">,
-                    <input type="number" name="length" id="length" value="<%= entry.length%>">
-                    <input type="text" name="url" id="url" value="<%= entry.url%>">
+                    <input type="text" name="name" id="name" value="<%= entry.name%>" placeholder="Name...">,
+                    <input type="number" name="length" id="length" value="<%= entry.length%>" placeholder="Length in seconds...">
+                    <input type="text" name="url" id="url" value="<%= entry.url%>" placeholder="URL to video...">
                     <button onclick="removeVideo(this.parentElement)" class="remove">Remove</button>
                 </div>
             <% }) %>
@@ -55,8 +55,8 @@
         let contentSection = document.querySelector(".content-section");
         let newSection = document.createElement("div");
         newSection.className = "content-entry";
-        newSection.innerHTML = '<input type="text" name="name" id="name"> ' +
-            '<input type="text" name="section" id="section"> ' +
+        newSection.innerHTML = '<input type="text" name="name" id="name" placeholder="Section name..."> ' +
+            '<input type="text" name="section" id="section" placeholder="Description..."> ' +
             '<div class="video-section">' +
             '<button class="add" onclick="addVideo(this.parentElement)">Add</button>' +
             '</div>' +
@@ -67,9 +67,9 @@
     function addVideo(el) {
         let newVideo = document.createElement("div");
         newVideo.className = "video-entry";
-        newVideo.innerHTML = '<input type="text" name="name" id="name">, ' +
-            '<input type="number" name="length" id="length"> ' +
-            '<input type="text" name="url" id="url"> ' +
+        newVideo.innerHTML = '<input type="text" name="name" id="name" placeholder="Name...">, ' +
+            '<input type="number" name="length" id="length" placeholder="Length in seconds..."> ' +
+            '<input type="text" name="url" id="url" placeholder="URL to video..."> ' +
             '<button onclick="removeVideo(this.parentElement)" class="remove">Remove</button> ';
         el.appendChild(newVideo);
     }
